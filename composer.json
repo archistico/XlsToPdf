@@ -1,0 +1,13 @@
+{
+    "name": "archistico/xlstopdf",
+    "require": {
+        "setasign/fpdf": "^1.8",
+        "phpoffice/phpspreadsheet": "^1.4"
+    },
+    "authors": [
+        {
+            "name": "Emilie Rollandin",
+            "email": "info@archistico.com"
+        }
+    ]
+}
