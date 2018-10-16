@@ -41,15 +41,21 @@ for ($row = 2; $row <= $highestRow; ++$row) {
         'datanascita' => $worksheet->getCellByColumnAndRow(7, $row)->getValue(),
         'codicefiscale' => $worksheet->getCellByColumnAndRow(9, $row)->getValue(),
         'eta' => $worksheet->getCellByColumnAndRow(10, $row)->getValue(),
-        'recapiti' => trim($worksheet->getCellByColumnAndRow(14, $row)->getValue()." ".$worksheet->getCellByColumnAndRow(15, $row)->getValue())
+        'recapito1' => trim($worksheet->getCellByColumnAndRow(14, $row)->getValue()),
+        'recapito2' => trim($worksheet->getCellByColumnAndRow(15, $row)->getValue())
     ];
 
     $listapersone[] = $persona;
     
 }
 
-$iniziale = "Name,Given Name,Additional Name,Family Name,Yomi Name,Given Name Yomi,Additional Name Yomi,Family Name Yomi,Name Prefix,Name Suffix,Initials,Nickname,Short Name,Maiden Name,Birthday,Gender,Location,Billing Information,Directory Server,Mileage,Occupation,Hobby,Sensitivity,Priority,Subject,Notes,Language,Photo,Group Membership,E-mail 1 - Type,E-mail 1 - Value,Phone 1 - Type,Phone 1 - Value,Phone 2 - Type,Phone 2 - Value";
-
+$csv = fopen("csv/import_google.csv", "w");
+$iniziale = "Name,Given Name,Additional Name,Family Name,Yomi Name,Given Name Yomi,Additional Name Yomi,Family Name Yomi,Name Prefix,Name Suffix,Initials,Nickname,Short Name,Maiden Name,Birthday,Gender,Location,Billing Information,Directory Server,Mileage,Occupation,Hobby,Sensitivity,Priority,Subject,Notes,Language,Photo,Group Membership,E-mail 1 - Type,E-mail 1 - Value,Phone 1 - Type,Phone 1 - Value,Phone 2 - Type,Phone 2 - Value\n";
+fwrite($csv, $iniziale);
 foreach($listapersone as $p) {
-    
+    $str = $p['nome']." ".$p['cognome'].",".$p['nome'].",,".$p['cognome'].",,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,* Email,,Principale,".$p['recapito1'].",Secondario,".$p['recapito2']."\n";
+    fwrite($csv, $str);
 }
+
+
+fclose($csv);
