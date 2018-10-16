@@ -5,7 +5,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
-        if ($row >= 1) {
+        if ($row >= 1 && $row <= 20) {
             return true;
         }
         return false;
@@ -14,8 +14,8 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 }
 
 $inputFileType = 'Ods';
-$inputFileName = 'origin/lista.ods';
-$sheetname = 'lista';
+$inputFileName = 'origin/listapazienti.ods';
+$sheetname = 'listapazienti';
 
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
 $reader->setLoadSheetsOnly($sheetname);
@@ -33,13 +33,13 @@ define('FPDF_FONTPATH','font');
 
 for ($row = 2; $row <= $highestRow; ++$row) {
     $persona = [
-        'cognome' => $worksheet->getCellByColumnAndRow(1, $row)->getValue(),
-        'nome' => $worksheet->getCellByColumnAndRow(2, $row)->getValue(),
-        'sesso' => $worksheet->getCellByColumnAndRow(3, $row)->getValue(),
-        'datanascita' => $worksheet->getCellByColumnAndRow(4, $row)->getValue(),
-        'codicefiscale' => $worksheet->getCellByColumnAndRow(5, $row)->getValue(),
-        'eta' => $worksheet->getCellByColumnAndRow(6, $row)->getValue(),
-        'recapiti' => trim($worksheet->getCellByColumnAndRow(7, $row)->getValue())
+        'cognome' => $worksheet->getCellByColumnAndRow(4, $row)->getValue(),
+        'nome' => $worksheet->getCellByColumnAndRow(5, $row)->getValue(),
+        'sesso' => $worksheet->getCellByColumnAndRow(6, $row)->getValue(),
+        'datanascita' => $worksheet->getCellByColumnAndRow(7, $row)->getValue(),
+        'codicefiscale' => $worksheet->getCellByColumnAndRow(9, $row)->getValue(),
+        'eta' => $worksheet->getCellByColumnAndRow(10, $row)->getValue(),
+        'recapiti' => trim($worksheet->getCellByColumnAndRow(14, $row)->getValue()." ".$worksheet->getCellByColumnAndRow(15, $row)->getValue())
     ];
 
     
